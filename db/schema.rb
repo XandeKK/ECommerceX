@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_193621) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_194817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -20,6 +20,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_193621) do
     t.string "desc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "desc"
+    t.float "discount_percent"
+    t.boolean "active"
+    t.uuid "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -39,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_193621) do
     t.index ["product_id"], name: "index_products_categories_on_product_id"
   end
 
+  add_foreign_key "discounts", "products"
   add_foreign_key "products_categories", "categories"
   add_foreign_key "products_categories", "products"
 end

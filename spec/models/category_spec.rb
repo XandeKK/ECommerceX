@@ -16,7 +16,6 @@ RSpec.describe Category, type: :model do
   describe "#products" do
     it "returns products" do
       category = create(:category)
-      p category.class
       products = category.products
       expect(products).to match_array(Product.find_by(category: category))
     end

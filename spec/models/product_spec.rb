@@ -17,5 +17,22 @@ RSpec.describe Product, type: :model do
 
   describe "Associations" do
     it { should have_many(:products_categories) }
+    it { should have_one(:discount) }
+  end
+
+  describe "#has_discount?" do
+    it "should have discount" do
+      product = create(:product)
+      discount = create(:discount, active: true, product: product)
+
+      expect(product.has_discount?).to equal(true)
+    end
+
+    it "should not have discount" do
+      product = create(:product)
+      discount = create(:discount, active: false, product: product)
+
+      expect(product.has_discount?).to equal(false)
+    end
   end
 end
