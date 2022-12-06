@@ -10,7 +10,7 @@ RSpec.describe Category, type: :model do
   end
 
   describe "Associations" do
-    it { should have_many(:product_categories) }
+    it { should have_many(:products_categories) }
   end
 
   describe "#products" do

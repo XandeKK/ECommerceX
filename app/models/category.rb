@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-	has_many :product_categories
+	has_many :products_categories
 
 	validates :name, presence: true
 	validates :desc, presence: true
