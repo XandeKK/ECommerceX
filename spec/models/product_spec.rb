@@ -12,6 +12,8 @@ RSpec.describe Product, type: :model do
     it { should validate_length_of(:sku).is_at_most(30) }
     it { should validate_length_of(:desc).is_at_most(500)  }
 
+    it { should validate_numericality_of(:price).is_greater_than_or_equal_to(0.1) }
+
     it { should validate_uniqueness_of(:sku) }
   end
 

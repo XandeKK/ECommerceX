@@ -3,5 +3,6 @@ FactoryBot.define do
     name { "Blusa de Ben 10" }
     sequence(:sku) { |n| "BLUSA-B10-#{n}" }
     desc { "Um Blusa de Ben 10 clássico" }
+    price { 50 }
   end
 end
