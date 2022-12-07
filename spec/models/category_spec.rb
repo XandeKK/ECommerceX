@@ -14,10 +14,18 @@ RSpec.describe Category, type: :model do
   end
 
   describe "#products" do
+    subject(:category) { create(:category) }
+
+    before do
+      create(:products_category, category: category, product: create(:product))
+      create(:products_category, category: category, product: create(:product, name: "Blusa de naruto"))
+    end
+
     it "returns products" do
-      category = create(:category)
-      products = category.products
-      expect(products).to match_array(Product.find_by(category: category))
+      actual_products = category.products
+      expect_products = Product.all
+
+      expect(actual_products).to match_array(expect_products)
     end
   end
 end
