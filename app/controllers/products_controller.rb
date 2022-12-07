@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
   before_action :define_product
   before_action :redirect_if_empty
 
