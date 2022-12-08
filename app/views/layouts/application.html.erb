@@ -13,7 +13,12 @@
   <body>
     <%= form_with url: search_path do |f| %>
       <%= f.search_field :name_cont %>
+      <%= f.submit %>
     <% end %>
-    <%= yield %>
+
+    <%= link_to "new product", new_product_path %>
+    <main id="main">
+      <%= yield %>
+    </main>
   </body>
 </html>

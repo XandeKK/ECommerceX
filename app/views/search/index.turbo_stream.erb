@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "main" do %>
+	<%= "Not exist" if @results.empty? %>
+	<% @results.each do |product| %>
+		<%= product.name %>
+		<!-- Add link here -->
+	<% end %>
+<% end %>
