@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_admin!, except: [:show]
   before_action :define_product, except: [:new, :create]
-  before_action :redirect_if_empty, except: [:new, :create]
 
   def show
   end
@@ -44,10 +43,10 @@ class ProductsController < ApplicationController
   end
 
   def define_product
-    @product = Product.find_by(id: params[:id])
-  end
-
-  def redirect_if_empty
-    redirect_to root_path if @product.nil?
+    begin
+      @product = Product.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, status: :not_found # add alert
+    end
   end
 end
