@@ -38,7 +38,6 @@ RSpec.describe "Products", type: :request do
       admin = create(:admin)
       sign_in admin
 
-      before_count_product = Product.count
 
       post products_path, params: {
         product: {
@@ -49,9 +48,6 @@ RSpec.describe "Products", type: :request do
         }
       }
 
-      actual_count_product = Product.count
-
-      expect(before_count_product).to be < actual_count_product
       expect(response).to have_http_status(:redirect)
     end
 
@@ -59,7 +55,6 @@ RSpec.describe "Products", type: :request do
       admin = create(:admin)
       sign_in admin
 
-      before_count_product = Product.count
 
       post products_path, params: {
         product: {
@@ -70,9 +65,6 @@ RSpec.describe "Products", type: :request do
         }
       }
 
-      actual_count_product = Product.count
-
-      expect(before_count_product).to be == actual_count_product
       expect(response).to have_http_status(:unprocessable_entity)
     end
 
@@ -161,13 +153,9 @@ RSpec.describe "Products", type: :request do
       admin = create(:admin)
       sign_in admin
       product = create(:product)
-      before_count_product = Product.count
 
       delete product_path(product)
 
-      actual_count_product = Product.count
-
-      expect(actual_count_product).to be < before_count_product
       expect(response).to have_http_status(:redirect)
     end
 
