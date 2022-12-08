@@ -1,0 +1,19 @@
+<%= form_with model: @product, url: products_path do |form| %>
+	<%= form.label "name" %>
+	<%= form.text_field "name" %>
+
+	<%= form.label "sku" %>
+	<%= form.text_field "sku" %>
+
+	<%= form.label "price" %>
+	<%= form.number_field "price" %>
+
+	<%= form.label "desc" %>
+	<%= form.text_area "desc" %>
+
+	<%= form.submit %>
+<% end %>
+
+<% @product.errors.messages.each do |message| %>
+  <%= message %>
+<% end %>
