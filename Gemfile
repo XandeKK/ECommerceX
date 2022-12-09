@@ -26,6 +26,7 @@ end
 
 group :development do
   gem "web-console"
+  gem 'figaro'
 end
 
 group :test do
