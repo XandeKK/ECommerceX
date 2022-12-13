@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
     @product = Product.new product_params
 
     if @product.save
+      create_product @product
       redirect_to product_path(@product) # add notice
     else
       render :new, status: :unprocessable_entity
@@ -48,5 +49,32 @@ class ProductsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       redirect_to root_path, status: :not_found # add alert
     end
+  end
+
+  def create_product product
+    stripe_product = Stripe::Product.create(
+      {
+        name: product.name,
+        description: product.desc,
+        url: product_url(product.id)
+        # add images
+      }
+    )
+    create_price(product, stripe_product)
+  end
+
+  def create_price(product, stripe_product)
+    price = Stripe::Price.create(
+      {
+        unit_amount: real_to_centavos(product.price),
+        currency: 'brl',
+        product: stripe_product.id
+      }
+    )
+    Price.create!(product: product, stripe_price_id: price.id)
+  end
+
+  def real_to_centavos price
+    (price * 100).to_i
   end
 end

@@ -2,3 +2,12 @@
 <%= @product.price %>
 <%= @product.sku %>
 <%= @product.desc %>
+
+<%= form_with url: checkout_session_path, data: { turbo: false } do |form| %>
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity %>
+
+  <%= form.hidden_field :price, value: @product.price.stripe_price_id %>
+
+  <%= form.submit "Pay" %>
+<% end %>
